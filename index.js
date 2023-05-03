@@ -1,4 +1,5 @@
 import config from './dbconfig.js';
+import PersonajeService from './src/services/personajes-services.js'
 import  sql from 'mssql';
 
 let pool= await sql.connect(config);
