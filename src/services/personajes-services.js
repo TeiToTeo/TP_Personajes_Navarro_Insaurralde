@@ -18,7 +18,7 @@ class PersonajeService
     }
     getById = async(id) => {
         let returnEntity = null;
-        console.log('Me encuentro en: algo va aca ');
+        console.log('Me encuentro en: PersonajeService.getById() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
@@ -91,7 +91,7 @@ class PersonajeService
 
     buscarNombre = async(nombre) => {
         let returnEntity = null;
-        console.log('Me encuentro en: algo va aca ');
+        console.log('Me encuentro en: PersonajeService.buscarNombre() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()

@@ -1,6 +1,7 @@
 import config from './dbconfig.js';
 import PersonajeService from './src/services/personajes-services.js'
 import  sql from 'mssql';
+import Personaje from './src/models/personajes.js';
 
 let pool= await sql.connect(config);
 let result = await pool.request().query("SELECT top 2 * from Personaje");
@@ -12,11 +13,12 @@ console.log(result.returnValue)
 console.log(result.output)
 console.log(result.rowsAffected)
 
-await test_getAll();
-//await test_getById();
-//await test_insert();
-//await test_update();
-//await test_deleteById();
+//await test_getAll(); ANDA
+//await test_getById(); NO ANDA
+//await test_insert(); ANDA
+//await test_update(); NO ANDA
+//await test_deleteById(); ANDA PERO NO SE QUE MUESTRA
+//await test_buscarNombre(); ANDA PERO CREO QUE MAL
 
 async function test_getAll(){
     let svc = new PersonajeService();
@@ -56,7 +58,7 @@ async function test_update(){
     let data;
     let elPerso; // no se que va aca
 
-    elPerso = await svc.getById(12);
+    elPerso = await svc.getById(1);
     if (elPerso!= null){
         elPerso.edad = 42;
 
@@ -72,7 +74,15 @@ async function test_deleteById(){
     let svc = new PersonajeService();
     let data;
 
-    data = await svc.deleteById(12);
+    data = await svc.deleteById(4);
+    console.log(data);
+}
+
+async function test_buscarNombre(){
+    let svc = new PersonajeService();
+    let data;
+
+    data = await svc.buscarNombre();
     console.log(data);
 }
 
