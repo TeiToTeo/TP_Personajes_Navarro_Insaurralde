@@ -7,8 +7,6 @@ class Personaje
     peso;
     historia;
     peliculasSeries;
-
-
 }
 
 export default Personaje;

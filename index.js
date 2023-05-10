@@ -2,16 +2,25 @@ import config from './dbconfig.js';
 import PersonajeService from './src/services/personajes-services.js'
 import  sql from 'mssql';
 import Personaje from './src/models/personajes.js';
+import express  from 'express';
 
-let pool= await sql.connect(config);
-let result = await pool.request().query("SELECT top 2 * from Personaje");
-console.log(result.recordset.length)
-console.log(result.recordset[0].length)
-console.log(result.recordset[0])
-console.log(result.recordset)
-console.log(result.returnValue)
-console.log(result.output)
-console.log(result.rowsAffected)
+	
+var app = express();	
+
+
+app.get('/', function(req, res) {
+    res.send('Soy la Home Page!');
+})
+
+
+app.get('/personajes', async(req, res)   => res.send(index(await test_getAll)) )
+
+
+app.listen(3000, function() {
+    console.log('Example app listening on port 3000!');
+})
+
+
 
 //await test_getAll(); ANDA
 //await test_getById(); NO ANDA
@@ -20,12 +29,16 @@ console.log(result.rowsAffected)
 //await test_deleteById(); ANDA PERO NO SE QUE MUESTRA
 //await test_buscarNombre(); ANDA PERO CREO QUE MAL
 
+
+
+
+
 async function test_getAll(){
     let svc = new PersonajeService();
     let data;
 
     data = await svc.getAll();
-    console.log(data);  //muestro todas las pizzas
+    res.send(data);  //muestro todas las pizzas
 }
 
 async function test_getById(){
@@ -85,5 +98,23 @@ async function test_buscarNombre(){
     data = await svc.buscarNombre();
     console.log(data);
 }
+
+
+
+
+
+
+/*--------------------------------------------------*/
+let pool= await sql.connect(config);
+let result = await pool.request().query("SELECT top 2 * from Personaje");
+console.log(result.recordset.length)
+console.log(result.recordset[0].length)
+console.log(result.recordset[0])
+console.log(result.recordset)
+console.log(result.returnValue)
+console.log(result.output)
+console.log(result.rowsAffected)
+
+
 
 process.exit();
