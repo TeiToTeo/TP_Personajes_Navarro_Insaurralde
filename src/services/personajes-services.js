@@ -3,9 +3,9 @@ import sql from "mssql";
 
 class PersonajeService
 {
-    getAll = async() => {
+    getAllC = async() => {
         let returnArray = null;
-        console.log('Estoy en: PersonajeService.getAll()');
+        console.log('Estoy en: PersonajeService.getAllC()');
         try {
             let pool   = await sql.connect(config);
             let result = await pool.request().query("SELECT * from Personaje");
@@ -16,9 +16,9 @@ class PersonajeService
         }
         return returnArray;
     }
-    getById = async(id) => {
+    getByIdC = async(id) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PersonajeService.getById() ');
+        console.log('Me encuentro en: PersonajeService.getByIdC() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
@@ -31,9 +31,9 @@ class PersonajeService
         return returnEntity;
 
     }
-    insert = async (Personaje) => {
+    insertC = async (Personaje) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PersonajeService.insert(Personaje)');
+        console.log('Estoy en: PersonajeService.insertC(Personaje)');
 
         try {
             let pool = await sql.connect(config);
@@ -53,9 +53,9 @@ class PersonajeService
     }
 
 
-    update = async (Personaje) => {
+    updateC = async (Personaje) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PersonajeService.update(Personaje)');
+        console.log('Estoy en: PersonajeService.updateC(Personaje)');
 
         try {
             let pool = await sql.connect(config);
@@ -74,7 +74,7 @@ class PersonajeService
         return rowsAffected;
     }
 
-    deleteById = async(id) => {
+    deleteByIdC = async(id) => {
         let rowsAffected = 0;
         console.log
         try{
@@ -89,9 +89,9 @@ class PersonajeService
         return rowsAffected;
     }
 
-    buscarNombre = async(nombre) => {
+    buscarNombreC = async(nombre) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PersonajeService.buscarNombre() ');
+        console.log('Me encuentro en: PersonajeService.buscarNombreC() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()

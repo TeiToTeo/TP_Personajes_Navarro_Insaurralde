@@ -1,7 +1,9 @@
 import config from './dbconfig.js';
+import  sql, { DateTime } from 'mssql';
 import PersonajeService from './src/services/personajes-services.js'
-import  sql from 'mssql';
 import Personaje from './src/models/personajes.js';
+import PeliculaSerieService from './src/services/peliculaSerie-services.js'
+import PeliculaSerie from './src/models/peliculaSerie';
 import express  from 'express';
 
 	
@@ -22,33 +24,40 @@ app.listen(3000, function() {
 
 
 
-//await test_getAll(); ANDA
-//await test_getById(); NO ANDA
-//await test_insert(); ANDA
-//await test_update(); NO ANDA
-//await test_deleteById(); ANDA PERO NO SE QUE MUESTRA
-//await test_buscarNombre(); ANDA PERO CREO QUE MAL
+//await test_getAllC(); ANDA
+//await test_getByIdC(); NO ANDA
+//await test_insertC(); ANDA
+//await test_updateC(); NO ANDA
+//await test_deleteByIdC(); ANDA PERO NO SE QUE MUESTRA
+//await test_buscarNombreC(); ANDA PERO CREO QUE MAL
+
+//await test_getAllM(); ANDA
+//await test_getByIdM(); NO ANDA
+//await test_insertM(); ANDA
+//await test_updateM(); NO ANDA
+//await test_deleteByIdM(); ANDA PERO NO SE QUE MUESTRA
+//await test_buscarNombreM(); ANDA PERO CREO QUE MAL
 
 
 
 
 
-async function test_getAll(){
+async function test_getAllC(){
     let svc = new PersonajeService();
     let data;
 
-    data = await svc.getAll();
-    res.send(data);  //muestro todas las pizzas
+    data = await svc.getAllC();
+    res.send(data);
 }
 
-async function test_getById(){
+async function test_getByIdC(){
     let svc = new PersonajeService();
     let data;
-    data = await svc.getById(2);
+    data = await svc.getByIdC(2);
     console.log(data);
 }
 
-async function test_insert(){
+async function test_insertC(){
     let svc = new PersonajeService();
     let data;
     let nuevoPersonaje = new Personaje();
@@ -62,20 +71,20 @@ async function test_insert(){
     console.log('\nnuevoPersonaje: ');
     console.log(nuevoPersonaje);
 
-    data = await svc.insert(nuevoPersonaje);
+    data = await svc.insertC(nuevoPersonaje);
     console.log(data);
 }
 
-async function test_update(){
+async function test_updateC(){
     let svc = new PersonajeService();
     let data;
     let elPerso; // no se que va aca
 
-    elPerso = await svc.getById(1);
+    elPerso = await svc.getByIdC(1);
     if (elPerso!= null){
         elPerso.edad = 42;
 
-        data = await svc.update(elPerso);
+        data = await svc.updateC(elPerso);
         console.log(data);
     } else {
         console.log('\elPerso: ');
@@ -83,22 +92,90 @@ async function test_update(){
     }
 }
 
-async function test_deleteById(){
+async function test_deleteByIdC(){
     let svc = new PersonajeService();
     let data;
 
-    data = await svc.deleteById(4);
+    data = await svc.deleteByIdC(4);
     console.log(data);
 }
 
-async function test_buscarNombre(){
+async function test_buscarNombreC(){
     let svc = new PersonajeService();
     let data;
 
-    data = await svc.buscarNombre();
+    data = await svc.buscarNombreC('Rick Sanchez');
     console.log(data);
 }
 
+
+/*--------------------------------------------------*/
+
+
+async function test_getAllM(){
+    let svc = new PeliculaSerieService();
+    let data;
+
+    data = await svc.getAllM();
+    res.send(data);
+}
+
+async function test_getByIdM(){
+    let svc = new PeliculaSerieService();
+    let data;
+    data = await svc.getByIdM(2);
+    console.log(data);
+}
+
+async function test_insertM(){
+    let svc = new PeliculaSerieService();
+    let data;
+    let nuevaPelicula = new PeliculaSerie();
+    
+    nuevaPelicula.imagen      = 'https://upload.wikimedia.org/wikipedia/commons/9/98/The_Simpsons_yellow_logo.svg';
+    nuevaPelicula.titulo  = 'Los simpson';
+    nuevaPelicula.fechaCreacion = 1987-04-19;     //ESTO TIRA ERROR new Date();const[year,month,day]=("1987-04-19")
+    nuevaPelicula.calificacion  = 8.7;
+    nuevaPelicula.personajesA      = 'Rick Sanchez';
+    console.log('\nnuevaPelicula: ');
+    console.log(nuevaPelicula);
+
+    data = await svc.insertM(nuevaPelicula);
+    console.log(data);
+}
+
+async function test_updateM(){
+    let svc = new PeliculaSerieService();
+    let data;
+    let laPeli;
+//  ESTO TAMBIEN HAY QUE CAMBIARLO
+    laPeli = await svc.getByIdM(1);
+    if (laPeli!= null){
+        laPeli.calificacion = 3.2;
+
+        data = await svc.updateM(laPeli);
+        console.log(data);
+    } else {
+        console.log('\laPeli: ');
+        console.log(laPeli);
+    }
+}
+
+async function test_deleteByIdM(){
+    let svc = new PeliculaSerieService();
+    let data;
+
+    data = await svc.deleteByIdM(4);
+    console.log(data);
+}
+
+async function test_buscarTituloM(){
+    let svc = new PeliculaSerieService();
+    let data;
+
+    data = await svc.buscarTituloM('Ben 10');
+    console.log(data);
+}
 
 
 

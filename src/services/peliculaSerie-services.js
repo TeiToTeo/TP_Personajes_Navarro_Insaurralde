@@ -3,9 +3,9 @@ import sql from "mssql";
 
 class PeliculaSerieService{
 
-    getAll = async() => {
+    getAllM = async() => {
         let returnArray = null;
-        console.log('Estoy en: PeliculaSerieService.getAll()');
+        console.log('Estoy en: PeliculaSerieService.getAllM()');
         try {
             let pool   = await sql.connect(config);
             let result = await pool.request().query("SELECT * from PeliculaSerie");
@@ -17,9 +17,9 @@ class PeliculaSerieService{
         return returnArray;
     }
 
-    getById = async(id) => {
+    getByIdM = async(id) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PeliculaSerieService.getById() ');
+        console.log('Me encuentro en: PeliculaSerieService.getByIdM() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
@@ -32,9 +32,9 @@ class PeliculaSerieService{
         return returnEntity;
     }
 
-    insert = async (PeliculaSerie) => {
+    insertM = async (PeliculaSerie) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PeliculaSerieService.insert(PeliculaSerie)');
+        console.log('Estoy en: PeliculaSerieService.insertM(PeliculaSerie)');
 
         try {
             let pool = await sql.connect(config);
@@ -53,9 +53,9 @@ class PeliculaSerieService{
     }
 
 
-    update = async (PeliculaSerie) => {
+    updateM = async (PeliculaSerie) => {
         let rowsAffected = 0;
-        console.log('Estoy en: PeliculaSerieService.update(PeliculaSerie)');
+        console.log('Estoy en: PeliculaSerieService.updateM(PeliculaSerie)');
 
         try {
             let pool = await sql.connect(config);
@@ -73,7 +73,7 @@ class PeliculaSerieService{
         return rowsAffected;
     }
 
-    deleteById = async(id) => {
+    deleteByIdM = async(id) => {
         let rowsAffected = 0;
         console.log
         try{
@@ -88,9 +88,9 @@ class PeliculaSerieService{
         return rowsAffected;
     }
 
-    buscarTitulo = async(titulo) => {
+    buscarTituloM = async(titulo) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PeliculaSerieService.buscarTitulo() ');
+        console.log('Me encuentro en: PeliculaSerieService.buscarTituloM() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
