@@ -23,7 +23,7 @@ class PersonajeService
             let pool = await sql.connect(config);
             let result = await pool.request()
                                         .input('pId', sql.Int, id)
-                                        .query('SELECT * FROM Personaje WHERE id = @id');
+                                        .query('SELECT * FROM Personaje WHERE Id = @pId');
             returnEntity = result.recordset[0][0];
         } catch(error){
             console.log(error);
