@@ -1,4 +1,5 @@
 import config from "../../dbconfig.js";
+import Personaje from "../models/personajes.js";
 import sql from "mssql";
 
 class PersonajeService
@@ -18,13 +19,13 @@ class PersonajeService
     }
     getByIdC = async(id) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PersonajeService.getByIdC() ');
+        console.log(`Me encuentro en: PersonajeService.getByIdC() id:${id}`);
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                        .input('pId', sql.Int, id)
-                                        .query('SELECT * FROM Personaje WHERE Id = @pId');
-            returnEntity = result.recordset[0][0];
+                                        .input('pId', sql.Int,id)
+                                        .query('SELECT * FROM Personaje WHERE Id = @pId');                            
+            returnEntity = result;
         } catch(error){
             console.log(error);
         }
@@ -53,17 +54,18 @@ class PersonajeService
     }
 
 
-    updateC = async (Personaje) => {
+    updateC = async (Personaje, id) => {
         let rowsAffected = 0;
         console.log('Estoy en: PersonajeService.updateC(Personaje)');
 
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
+                .input('pId', sql.Int,id)
                 .input('pImagen', sql.VarChar   , Personaje?.imagen ?? '')    
                 .input('pNombre'     , sql.VarChar , Personaje?.nombre ?? '')
                 .input('pEdad'    , sql.Int , Personaje?.edad ?? 0)
-                .input('pPeso', sql.Float , Personaje?.peso ?? '')
+                .input('pPeso', sql.Float , Personaje?.peso ?? 0)
                 .input('pHistoria', sql.VarChar   , Personaje?.historia ?? '')
                 .input('pPeliculasSeries', sql.VarChar   , Personaje?.peliculasSeries ?? '')
                 .query(`UPDATE Personaje SET Imagen = @pImagen, Nombre = @pNombre, Edad =@pEdad, Peso =@pPeso, Historia=@pHistoria, PeliculasSeries = @pPeliculasSeries WHERE Id=@pId`);

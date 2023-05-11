@@ -25,14 +25,14 @@ app.listen(3000, function() {
 
 
 //await test_getAllC(); //ANDA
-//await test_getByIdC(); // Dice undefined
+//await test_getByIdC(); // ANDA
 //await test_insertC(); //ANDA
-//await test_updateC(); //NO ANDA
-//await test_deleteByIdC(); //ANDA PERO NO SE QUE MUESTRA
-//await test_buscarNombreC(); //ANDA PERO CREO QUE MAL
+//await test_updateC(); //Dice undefined HAY QUE ARREGLARLO ASDASDAS
+//await test_deleteByIdC(); //ANDA
+//await test_buscarNombreC(); //Dice undefined
 
 //await test_getAllM(); ANDA
-//await test_getByIdM(); //Dice undefined
+//await test_getByIdM(); //ANDA
 //await test_insertM(); //ANDA
 //await test_updateM(); //Dice undefined
 //await test_deleteByIdM(); //ANDA
@@ -53,7 +53,7 @@ async function test_getAllC(){
 async function test_getByIdC(){
     let svc = new PersonajeService();
     let data;
-    data = await svc.getByIdC(2);
+    data = await svc.getByIdC(1);
     console.log(data);
 }
 
@@ -62,12 +62,12 @@ async function test_insertC(){
     let data;
     let nuevoPersonaje = new Personaje();
     
-    nuevoPersonaje.imagen      = 'https://static.wikia.nocookie.net/doblaje/images/a/ac/Morty_Smith_AS.png/revision/latest?cb=20210716132553&path-prefix=es';
+    nuevoPersonaje.imagen  = 'https://static.wikia.nocookie.net/doblaje/images/a/ac/Morty_Smith_AS.png/revision/latest?cb=20210716132553&path-prefix=es';
     nuevoPersonaje.nombre  = 'Morty';
-    nuevoPersonaje.edad      = 14;
-    nuevoPersonaje.peso  = '40';
-    nuevoPersonaje.historia      = 'El nieto de Rick Sanchez siempre lo acompaña en aventuras locas por todo el universo';
-    nuevoPersonaje.peliculasSeries      = 'Rick y Morty';
+    nuevoPersonaje.edad    = 14;
+    nuevoPersonaje.peso    = '40';
+    nuevoPersonaje.historia= 'El nieto de Rick Sanchez siempre lo acompaña en aventuras locas por todo el universo';
+    nuevoPersonaje.peliculasSeries= 'Rick y Morty';
     console.log('\nnuevoPersonaje: ');
     console.log(nuevoPersonaje);
 

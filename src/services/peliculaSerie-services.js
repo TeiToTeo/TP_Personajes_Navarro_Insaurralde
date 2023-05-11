@@ -25,7 +25,7 @@ class PeliculaSerieService{
             let result = await pool.request()
                                         .input('pId', sql.Int, id)
                                         .query('SELECT * FROM PeliculaSerie WHERE Id = @pId');
-            returnEntity = result.recordset[0][0];
+            returnEntity = result;
         } catch(error){
             console.log(error);
         }
