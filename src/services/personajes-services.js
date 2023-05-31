@@ -91,15 +91,15 @@ class PersonajeService
         return rowsAffected;
     }
 
-    buscarNombreC = async(nombre) => {
+    buscarNombreC = async(Nombre) => {
         let returnEntity = null;
         console.log('Me encuentro en: PersonajeService.buscarNombreC() ');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                        .input('pNombre', sql.VarChar, nombre)
-                                        .query('SELECT * FROM Personaje WHERE nombre = @pNombre ORDER BY Edad asc, Peso asc, PeliculasSeries');
-            returnEntity = result.recordset[0][0];
+                                        .input('pNombre', sql.VarChar, Nombre)
+                                        .query('SELECT * FROM Personaje WHERE Nombre = @pNombre ORDER BY Edad asc, Peso asc, PeliculasSeries');
+            returnEntity = result.recordsets[0][0];
         } catch(error){
             console.log(error);
         }

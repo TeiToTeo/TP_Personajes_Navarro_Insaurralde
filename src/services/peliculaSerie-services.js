@@ -53,19 +53,22 @@ class PeliculaSerieService{
     }
 
 
-    updateM = async (PeliculaSerie) => {
+    updateM = async (PeliculaSerie,Id) => {
         let rowsAffected = 0;
         console.log('Estoy en: PeliculaSerieService.updateM(PeliculaSerie)');
-
+        console.log(PeliculaSerie);
+        
         try {
+            let fechaCreacion = PeliculaSerie.fechaCreacion 
             let pool = await sql.connect(config);
             let result = await pool.request()
+                .input('pId',sql.Int,Id)
                 .input('pImagen', sql.VarChar   , PeliculaSerie?.imagen ?? '')    
                 .input('pTitulo'     , sql.VarChar , PeliculaSerie?.titulo ?? '')
-                .input('pFechaCreacion'    , sql.Date , PeliculaSerie?.fechaCreacion ?? '')
-                .input('pCalificacion', sql.Float , PeliculaSerie?.calificacion ?? '')
+                // .input('pFechaCreacion'    , sql.Date , PeliculaSerie?.fechaCreacion ?? 0)
+                .input('pCalificacion', sql.Float , PeliculaSerie?.calificacion ?? 0)
                 .input('pPersonajesA', sql.VarChar   , PeliculaSerie?.PersonajesA ?? '')
-                .query(`INSERT INTO PeliculaSerie (Imagen, Titulo, FechaCreacion, Calificacion, PersonajesA) VALUES (@pImagen, @pTitulo, @pFechaCreacion, @pCalificacion, @pPersonajesA)`);
+                .query(`UPDATE  PeliculaSerie SET Imagen=@pImagen, Titulo=@pTitulo, FechaCreacion={fechaCreacion}, Calificacion=@pCalificacion, PersonajesA=@pPersonajesA WHERE Id=@pId`);
         rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
@@ -88,15 +91,15 @@ class PeliculaSerieService{
         return rowsAffected;
     }
 
-    buscarTituloM = async(titulo) => {
+    buscarTituloM = async(Titulo) => {
         let returnEntity = null;
-        console.log('Me encuentro en: PeliculaSerieService.buscarTituloM() ');
+        console.log('Me encuentro en: PeliculaSerieService.buscarTituloM()');
         try {
             let pool = await sql.connect(config);
             let result = await pool.request()
-                                        .input('pTitulo', sql.VarChar, titulo)
-                                        .query('SELECT * FROM PeliculaSerie WHERE titulo = @pTitulo ORDER BY FechaCreacion asc');
-            returnEntity = result.recordset[0][0];
+                                        .input('pTitulo', sql.VarChar, Titulo)
+                                        .query('SELECT * FROM PeliculaSerie WHERE Titulo = @pTitulo ORDER BY FechaCreacion asc');
+            returnEntity = result.recordsets[0][0];
         } catch(error){
             console.log(error);
         }

@@ -27,16 +27,16 @@ app.listen(3000, function() {
 //await test_getAllC(); //ANDA
 //await test_getByIdC(); // ANDA
 //await test_insertC(); //ANDA
-//await test_updateC(); //Dice undefined HAY QUE ARREGLARLO ASDASDAS
+//await test_updateC(); //ANDA
 //await test_deleteByIdC(); //ANDA
-//await test_buscarNombreC(); //Dice undefined
+//await test_buscarNombreC(); ///
 
 //await test_getAllM(); ANDA
 //await test_getByIdM(); //ANDA
 //await test_insertM(); //ANDA
-//await test_updateM(); //Dice undefined
+await test_updateM(); //Dice undefined
 //await test_deleteByIdM(); //ANDA
-//await test_buscarTituloM(); //Dice undefined
+//await test_buscarTituloM(); //ANDA
 
 
 
@@ -82,13 +82,14 @@ async function test_updateC(){
 
     elPerso = await svc.getByIdC(1);
     if (elPerso!= null){
-        elPerso.edad = 42;
+        elPerso.edad = 40;
 
-        data = await svc.updateC(elPerso);
+        data = await svc.updateC(elPerso, 1);
         console.log(data);
+        console.log(elPerso.edad);
     } else {
         console.log('\elPerso: ');
-        console.log(elPerso);
+        console.log(elPerso.edad);
     }
 }
 
@@ -150,14 +151,16 @@ async function test_updateM(){
 
     laPeli = await svc.getByIdM(7);
     if (laPeli!= null){
-        laPeli.imagen = 'https://static.wikia.nocookie.net/featteca/images/9/98/Shrek.png/revision/latest?cb=20220713043820&path-prefix=es';
-        laPeli.titulo = 'Asdasd';
+        
+        // laPeli.imagen = 'https://static.wikia.nocookie.net/featteca/images/9/98/Shrek.png/revision/latest?cb=20220713043820&path-prefix=es';
+        // laPeli.titulo = 'Asdasd';
         laPeli.fechaCreacion = 1997-12-12;
-        laPeli.calificacion = 3.2;
-        laPeli.personajesA = 'Rick Sanchez';
+        // laPeli.calificacion = 3.2;
+        // laPeli.PersonajesA = 'Rick Sanchez';
 
-        data = await svc.updateM(laPeli);
+        data = await svc.updateM(laPeli,7);
         console.log(data);
+        console.log(laPeli.fechaCreacion);
     } else {
         console.log('\llaPeli: ');
         console.log(laPeli);
@@ -176,7 +179,7 @@ async function test_buscarTituloM(){
     let svc = new PeliculaSerieService();
     let data;
 
-    data = await svc.buscarTituloM('Ben 10');
+    data = await svc.buscarTituloM('Rick y Morty');
     console.log(data);
 }
 
