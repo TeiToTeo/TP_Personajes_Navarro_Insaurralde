@@ -53,23 +53,26 @@ class PeliculaSerieService{
     }
 
 
-    updateM = async (PeliculaSerie,Id) => {
+    updateM = async (PeliculaSerie ,Id) => {
         let rowsAffected = 0;
         console.log('Estoy en: PeliculaSerieService.updateM(PeliculaSerie)');
-        console.log(PeliculaSerie);
-        
         try {
-            let fechaCreacion = PeliculaSerie.fechaCreacion 
+            // let fechaCreacion = PeliculaSerie.fechaCreacion 
+            
             let pool = await sql.connect(config);
+            console.log("----------------------------------")
+            console.log(config)
+            console.log("----------------------------------")
             let result = await pool.request()
-                .input('pId',sql.Int,Id)
-                .input('pImagen', sql.VarChar   , PeliculaSerie?.imagen ?? '')    
-                .input('pTitulo'     , sql.VarChar , PeliculaSerie?.titulo ?? '')
-                // .input('pFechaCreacion'    , sql.Date , PeliculaSerie?.fechaCreacion ?? 0)
-                .input('pCalificacion', sql.Float , PeliculaSerie?.calificacion ?? 0)
-                .input('pPersonajesA', sql.VarChar   , PeliculaSerie?.PersonajesA ?? '')
-                .query(`UPDATE  PeliculaSerie SET Imagen=@pImagen, Titulo=@pTitulo, FechaCreacion={fechaCreacion}, Calificacion=@pCalificacion, PersonajesA=@pPersonajesA WHERE Id=@pId`);
-        rowsAffected = result.rowsAffected;
+                .input('pId', sql.Int, Id)
+                .input('pImagen', sql.VarChar, PeliculaSerie?.imagen)
+                .input('pTitulo', sql.VarChar, PeliculaSerie?.titulo)
+                .input('pFechaCreacion', sql.Date, PeliculaSerie?.fechaCreacion)
+                .input('pCalificacion', sql.Float, PeliculaSerie?.calificacion)
+                .input('pPersonajesA', sql.VarChar, PeliculaSerie?.PersonajesA)
+                .query(`UPDATE  PeliculaSerie SET Imagen=@pImagen, Titulo=@pTitulo, FechaCreacion=@pFechaCreacion, Calificacion=@pCalificacion, PersonajesA=@pPersonajesA WHERE Id=@pId`);
+            console.log(rowsAffected)
+            rowsAffected = result.rowsAffected;
         } catch (error) {
             console.log(error);
         }

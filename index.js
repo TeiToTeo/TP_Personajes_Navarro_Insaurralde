@@ -147,18 +147,16 @@ async function test_insertM(){
 async function test_updateM(){
     let svc = new PeliculaSerieService();
     let data;
-    let laPeli;
-
-    laPeli = await svc.getByIdM(7);
-    if (laPeli!= null){
+    let laPeli = await svc.getByIdM(4);
+    if (laPeli){
         
         // laPeli.imagen = 'https://static.wikia.nocookie.net/featteca/images/9/98/Shrek.png/revision/latest?cb=20220713043820&path-prefix=es';
         // laPeli.titulo = 'Asdasd';
         laPeli.fechaCreacion = 1997-12-12;
         // laPeli.calificacion = 3.2;
         // laPeli.PersonajesA = 'Rick Sanchez';
-
-        data = await svc.updateM(laPeli,7);
+        console.log("lapeli", laPeli.recordsets[0][0])
+        data = await svc.updateM(laPeli.recordsets[0][0], 4);
         console.log(data);
         console.log(laPeli.fechaCreacion);
     } else {
