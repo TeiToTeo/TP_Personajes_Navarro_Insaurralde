@@ -4,40 +4,72 @@ import PersonajeService from './src/services/personajes-services.js'
 import Personaje from './src/models/personajes.js';
 import PeliculaSerieService from './src/services/peliculaSerie-services.js'
 import PeliculaSerie from './src/models/peliculaSerie.js';
-import express  from 'express';
+import express from 'express';
 
 	
-var app = express();	
+const app = express();	
 
 
 app.get('/', function(req, res) {
     res.send('Soy la Home Page!');
 })
 
+app.get('/getAllC', async function(req, res) {
+    res.send(await test_getAllC())
+})
+app.get('/getByIdC', async function(req, res) {
+    res.send(await test_getByIdC())
+})
+app.get('/insertC', async function(req, res) {
+    res.send(await test_insertC())
+})
+app.get('/updateC', async function(req, res) {
+    res.send(await test_updateC())
+})
+app.get('/deleteByIdC', async function(req, res) {
+    res.send(await test_deleteByIdC())
+})
+app.get('/buscarNombreC', async function(req, res) {
+    res.send(await test_buscarNombreC())
+})
 
-app.get('/personajes', async(req, res)   => res.send(index(await test_getAll)) )
+/*---------------------------------------*/
 
-
-app.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
+app.get('/getAllM', async function(req, res) {
+    res.send(await test_getAllM())
+})
+app.get('/getByIdM', async function(req, res) {
+    res.send(await test_getByIdM())
+})
+app.get('/insertM', async function(req, res) {
+    res.send(await test_insertM())
+})
+app.get('/updateM', async function(req, res) {
+    res.send(await test_updateM())
+})
+app.get('/deleteByIdM', async function(req, res) {
+    res.send(await test_deleteByIdM())
+})
+app.get('/buscarTituloM', async function(req, res) {
+    res.send(await test_buscarTituloM())
 })
 
 
+await test_getAllC(); //ANDA
+await test_getByIdC(); // ANDA
+/*
+await test_insertC(); //ANDA
+await test_updateC(); //ANDA
+await test_deleteByIdC(); //ANDA
+await test_buscarNombreC(); //ANDA
 
-//await test_getAllC(); //ANDA
-//await test_getByIdC(); // ANDA
-//await test_insertC(); //ANDA
-//await test_updateC(); //ANDA
-//await test_deleteByIdC(); //ANDA
-//await test_buscarNombreC(); ///
-
-//await test_getAllM(); ANDA
-//await test_getByIdM(); //ANDA
-//await test_insertM(); //ANDA
-await test_updateM(); //Dice undefined
-//await test_deleteByIdM(); //ANDA
-//await test_buscarTituloM(); //ANDA
-
+await test_getAllM(); //ANDA
+await test_getByIdM(); //ANDA
+await test_insertM(); //ANDA
+await test_updateM(); //ANDA
+await test_deleteByIdM(); //ANDA
+await test_buscarTituloM(); //ANDA
+*/  
 
 
 
@@ -46,15 +78,16 @@ async function test_getAllC(){
     let data;
 
     data = await svc.getAllC();
-    //res.send(data);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_getByIdC(){
     let svc = new PersonajeService();
     let data;
-    data = await svc.getByIdC(1);
+    data = await svc.getByIdC(1 );
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_insertC(){
@@ -73,6 +106,7 @@ async function test_insertC(){
 
     data = await svc.insertC(nuevoPersonaje);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_updateC(){
@@ -87,6 +121,7 @@ async function test_updateC(){
         data = await svc.updateC(elPerso, 1);
         console.log(data);
         console.log(elPerso.edad);
+        return JSON.stringify(data)
     } else {
         console.log('\elPerso: ');
         console.log(elPerso.edad);
@@ -99,6 +134,7 @@ async function test_deleteByIdC(){
 
     data = await svc.deleteByIdC(4);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_buscarNombreC(){
@@ -107,6 +143,7 @@ async function test_buscarNombreC(){
 
     data = await svc.buscarNombreC('Rick Sanchez');
     console.log(data);
+    return JSON.stringify(data)
 }
 
 
@@ -118,6 +155,7 @@ async function test_getAllM(){
     let data
     data = await svc.getAllM();
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_getByIdM(){
@@ -125,6 +163,7 @@ async function test_getByIdM(){
     let data;
     data = await svc.getByIdM(1);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_insertM(){
@@ -142,6 +181,7 @@ async function test_insertM(){
 
     data = await svc.insertM(nuevaPelicula);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_updateM(){
@@ -159,6 +199,7 @@ async function test_updateM(){
         data = await svc.updateM(laPeli.recordsets[0][0], 4);
         console.log(data);
         console.log(laPeli.fechaCreacion);
+        return JSON.stringify(data)
     } else {
         console.log('\llaPeli: ');
         console.log(laPeli);
@@ -171,6 +212,7 @@ async function test_deleteByIdM(){
 
     data = await svc.deleteByIdM(7);
     console.log(data);
+    return JSON.stringify(data)
 }
 
 async function test_buscarTituloM(){
@@ -179,6 +221,7 @@ async function test_buscarTituloM(){
 
     data = await svc.buscarTituloM('Rick y Morty');
     console.log(data);
+    return JSON.stringify(data)
 }
 
 
@@ -196,6 +239,9 @@ async function test_buscarTituloM(){
 // console.log(result.output)
 // console.log(result.rowsAffected)
 
+app.listen(3000, function() {
+    console.log('Example app listening on port 3000!');
+})
 
 
-process.exit();
+
