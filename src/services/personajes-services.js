@@ -42,7 +42,7 @@ class PersonajeService
                 .input('pImagen', sql.VarChar   , Personaje?.imagen ?? '')    
                 .input('pNombre'     , sql.VarChar , Personaje?.nombre ?? '')
                 .input('pEdad'    , sql.Int , Personaje?.edad ?? 0)
-                .input('pPeso', sql.Float , Personaje?.peso ?? '')
+                .input('pPeso', sql.Float , Personaje?.peso ?? 0)
                 .input('pHistoria', sql.VarChar   , Personaje?.historia ?? '')
                 .input('pPeliculasSeries', sql.VarChar   , Personaje?.peliculasSeries ?? '')
                 .query(`INSERT INTO Personaje (Imagen, Nombre, Edad, Peso, Historia, PeliculasSeries) VALUES (@pImagen, @pNombre, @pEdad, @pPeso, @pHistoria, @pPeliculasSeries)`);
